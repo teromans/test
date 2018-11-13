@@ -1,0 +1,160 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+  (Fill in comments below)
+*******************************************************************************************/
+/*
+Dealer Name:
+System Name:
+System Number:
+Programmer: CH
+Comments:
+*/
+
+/*******************************************************************************************
+  Compiler Directives
+  (Uncomment and declare compiler directives as needed)
+*******************************************************************************************/
+// #ENABLE_DYNAMIC
+// #SYMBOL_NAME ""
+// #HINT ""
+// #DEFINE_CONSTANT
+#CATEGORY "0" 
+// #DEFAULT_VOLATILE
+// #PRINT_TO_TRACE
+// #DIGITAL_EXPAND 
+// #ANALOG_SERIAL_EXPAND 
+#OUTPUT_SHIFT 1
+// #HELP_PDF_FILE ""
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+#USER_SIMPLSHARP_LIBRARY "CrestronKNXLibrary"
+
+
+/*
+#HELP_BEGIN
+   (add additional lines of help lines)
+#HELP_END
+*/
+
+/*******************************************************************************************
+  Include Libraries
+  (Uncomment and include additional libraries as needed)
+*******************************************************************************************/
+// #CRESTRON_LIBRARY ""
+// #USER_LIBRARY ""
+
+/*******************************************************************************************
+  DIGITAL, ANALOG and SERIAL INPUTS and OUTPUTS
+  (Uncomment and declare inputs and outputs as needed)
+*******************************************************************************************/
+DIGITAL_INPUT Initialize, Poll_Value;
+DIGITAL_INPUT Send_Value, _SKIP_;
+ANALOG_INPUT _SKIP_,Value_HighBytes, Value_MidBytes, Value_LowBytes, _SKIP_;
+// STRING_INPUT
+// BUFFER_INPUT 
+
+// DIGITAL_OUTPUT
+DIGITAL_OUTPUT InitializationIsComplete;
+ANALOG_OUTPUT Value_HighBytes_Analog, Value_MidBytes_Analog, Value_LowBytes_Analog,_SKIP_;
+STRING_OUTPUT Value_Text;
+
+/*******************************************************************************************
+  Parameters
+  (Uncomment and declare parameters as needed)
+*******************************************************************************************/
+INTEGER_PARAMETER ipGatewayID;
+// SIGNED_INTEGER_PARAMETER
+// LONG_INTEGER_PARAMETER
+// SIGNED_LONG_INTEGER_PARAMETER
+STRING_PARAMETER spAddress[20];
+
+
+
+/*******************************************************************************************
+  Global Variables
+  (Uncomment and declare global variables as needed)
+  Note:  Be sure to initialize all declared STRING variables as needed
+         For example, in Function Main: myString = "";
+*******************************************************************************************/
+// LONG_INTEGER
+// SIGNED_INTEGER
+// SIGNED_LONG_INTEGER
+// STRING
+KNXSixByteSimplSharpComponent simplSharpComponent; 
+
+/*******************************************************************************************
+  Event Handlers
+  (Uncomment and declare additional event handlers as needed)
+*******************************************************************************************/
+PUSH Initialize
+{
+   	simplSharpComponent.InitializeSettings(ipGatewayID, getSymbolReferenceName(), spAddress);
+}
+
+PUSH Poll_Value
+{
+	simplSharpComponent.PollValue();
+}
+
+PUSH Send_Value
+{
+    simplSharpComponent.ChangeValue(Value_LowBytes, Value_MidBytes, Value_HighBytes);
+}
+
+/*****************************************************
+                CALLBACK FUNCTIONS
+******************************************************/
+
+Callback Function UpdateSixByteValueLowBytesCallback(integer value)
+{
+	Value_LowBytes_Analog = value;
+}
+
+Callback Function UpdateSixByteValueMidBytesCallback(integer value)
+{
+	Value_MidBytes_Analog = value;
+}
+
+
+Callback Function UpdateSixByteValueHighBytesCallback(integer value)
+{
+	Value_HighBytes_Analog = value;
+}
+
+Callback Function UpdateSixBytesUnsignedValueCallback(string value)
+{
+	Value_Text = value;
+}
+
+    
+
+Callback Function initializationIsCompleteCallback(integer tempState)
+{
+	InitializationIsComplete = tempState;	
+}
+
+
+
+callback function basicInitializationIsCompleteHandler()
+{
+	RegisterDelegate(simplSharpComponent, initializationIsComplete, initializationIsCompleteCallback);
+    RegisterDelegate(simplSharpComponent, UpdateSixByteValueLowBytes, UpdateSixByteValueLowBytesCallback);	
+	RegisterDelegate(simplSharpComponent, UpdateSixByteValueMidBytes, UpdateSixByteValueMidBytesCallback);	
+	RegisterDelegate(simplSharpComponent, UpdateSixByteValueHighBytes, UpdateSixByteValueHighBytesCallback);	
+	RegisterDelegate(simplSharpComponent, UpdateSixBytesUnsignedValue, UpdateSixBytesUnsignedValueCallback);		
+
+
+    simplSharpComponent.BeginInitialization();
+}
+/*******************************************************************************************
+  Main()
+  Uncomment and place one-time startup code here
+  (This code will get called when the system starts up)
+*******************************************************************************************/
+
+Function Main()
+{                
+	WaitForInitializationComplete();
+    RegisterDelegate(simplSharpComponent, basicInitializationIsComplete, basicInitializationIsCompleteHandler);
+}

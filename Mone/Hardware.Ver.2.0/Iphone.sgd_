@@ -1,0 +1,920 @@
+[
+ObjTp=FSgntr
+Sgntr=SGD
+RelVrs=3
+VTProeVer=6.2.00
+Schema=1
+CRCGUID=CE3FBDBC-63C0-4103-B9D5-5CE4675F265C
+]
+;================================================================================
+[
+ObjTp=Hd
+ProjectFile=Iphone.vtp
+VtpGuid=0F0DA2CB-1A2A-4F17-B09A-48E7D765DBBB
+]
+;================================================================================
+[
+ObjTp=Symbol
+Name=Iphone_[Video] Video_page_Sourse selection.ced
+Hint=Sourse selection (Smart Object ID=1)
+Code=1
+SGControlType=Horizontal Tab Button
+SGControlName=Sourse selection
+GUID=AD8457F0-52C1-4D75-859A-DC29F080D007
+SmplCName=Iphone_[Video] Video_page_Sourse selection.ced
+SMWRev=4.02.19
+Expand=expand_random
+HelpID=10031
+;Define the number of inputs, outputs and parameters
+MinVariableInputs=18
+MaxVariableInputs=18
+MinVariableOutputs=18
+MaxVariableOutputs=18
+NumFixedParams=1
+MinVariableInputsList2=0
+MaxVariableInputsList2=0
+MinVariableOutputsList2=0
+MaxVariableOutputsList2=0
+MinVariableInputsList3=0
+MaxVariableInputsList3=0
+MinVariableOutputsList3=0
+MaxVariableOutputsList3=0
+;Define the cues, and signal types  each input, output and parameter.
+InputCue1=[~UNUSED3~]
+InputSigType1=Digital
+OutputCue1=Tab Button 1 Press
+OutputSigType1=Digital
+InputCue2=Tab Button 1 Select
+InputSigType2=Digital
+OutputCue2=[~UNUSED3~]
+OutputSigType2=Digital
+InputCue3=[~UNUSED3~]
+InputSigType3=Digital
+OutputCue3=Tab Button 2 Press
+OutputSigType3=Digital
+InputCue4=Tab Button 2 Select
+InputSigType4=Digital
+OutputCue4=[~UNUSED3~]
+OutputSigType4=Digital
+InputCue5=[~UNUSED3~]
+InputSigType5=Digital
+OutputCue5=Tab Button 3 Press
+OutputSigType5=Digital
+InputCue6=Tab Button 3 Select
+InputSigType6=Digital
+OutputCue6=[~UNUSED3~]
+OutputSigType6=Digital
+InputCue7=[~UNUSED3~]
+InputSigType7=Digital
+OutputCue7=Tab Button 4 Press
+OutputSigType7=Digital
+InputCue8=Tab Button 4 Select
+InputSigType8=Digital
+OutputCue8=[~UNUSED3~]
+OutputSigType8=Digital
+InputCue9=[~UNUSED3~]
+InputSigType9=Digital
+OutputCue9=Tab Button 5 Press
+OutputSigType9=Digital
+InputCue10=Tab Button 5 Select
+InputSigType10=Digital
+OutputCue10=[~UNUSED3~]
+OutputSigType10=Digital
+InputCue11=[~UNUSED3~]
+InputSigType11=Digital
+OutputCue11=Tab Button 6 Press
+OutputSigType11=Digital
+InputCue12=Tab Button 6 Select
+InputSigType12=Digital
+OutputCue12=[~UNUSED3~]
+OutputSigType12=Digital
+InputCue13=[~UNUSED3~]
+InputSigType13=Digital
+OutputCue13=Tab Button 7 Press
+OutputSigType13=Digital
+InputCue14=Tab Button 7 Select
+InputSigType14=Digital
+OutputCue14=[~UNUSED3~]
+OutputSigType14=Digital
+InputCue15=[~UNUSED3~]
+InputSigType15=Digital
+OutputCue15=Tab Button 8 Press
+OutputSigType15=Digital
+InputCue16=Tab Button 8 Select
+InputSigType16=Digital
+OutputCue16=[~UNUSED3~]
+OutputSigType16=Digital
+InputCue17=[~UNUSED3~]
+InputSigType17=Digital
+OutputCue17=Tab Button 9 Press
+OutputSigType17=Digital
+InputCue18=Tab Button 9 Select
+InputSigType18=Digital
+OutputCue18=[~UNUSED3~]
+OutputSigType18=Digital
+ParamCue1=SmartObjectId
+ParamSigType1=Constant
+MPp=1
+Pp1=1
+CedH=1
+SmartObjId=1d
+]
+; Parameter Properties for Smart Object ID
+[
+ObjTp=Dp
+H=1
+Tp=1
+HD=TRUE
+DV=1d
+NF=1
+DNF=1
+EncFmt=0
+DVLF=1
+Sgn=0
+]
+; Smart Objects Definition section
+[
+ObjTp=CED
+H=1
+Name=Iphone_[Video] Video_page_Sourse selection.ced
+;Cedver is the version of the Smart Graphics control, not the CED file format.
+;If the control definition changes, increment this.
+CedVer=1
+]
+;================================================================================
+[
+ObjTp=Symbol
+Name=Iphone_[Video] [Dpad] Dpad_sat_DPad_sat.ced
+Hint=DPad_sat (Smart Object ID=2)
+Code=2
+SGControlType=DPad
+SGControlName=DPad_sat
+GUID=4BBA7D56-31EA-4157-ABD5-56CD8587943E
+SmplCName=Iphone_[Video] [Dpad] Dpad_sat_DPad_sat.ced
+SMWRev=4.02.19
+Expand=expand_random
+HelpID=10015
+;Define the number of inputs, outputs and parameters
+MinVariableInputs=5
+MaxVariableInputs=5
+MinVariableOutputs=5
+MaxVariableOutputs=5
+NumFixedParams=1
+MinVariableInputsList2=0
+MaxVariableInputsList2=0
+MinVariableOutputsList2=0
+MaxVariableOutputsList2=0
+MinVariableInputsList3=0
+MaxVariableInputsList3=0
+MinVariableOutputsList3=0
+MaxVariableOutputsList3=0
+;Define the cues, and signal types  each input, output and parameter.
+InputCue1=[~UNUSED3~]
+InputSigType1=Digital
+OutputCue1=Up
+OutputSigType1=Digital
+InputCue2=[~UNUSED3~]
+InputSigType2=Digital
+OutputCue2=Down
+OutputSigType2=Digital
+InputCue3=[~UNUSED3~]
+InputSigType3=Digital
+OutputCue3=Left
+OutputSigType3=Digital
+InputCue4=[~UNUSED3~]
+InputSigType4=Digital
+OutputCue4=Right
+OutputSigType4=Digital
+InputCue5=[~UNUSED3~]
+InputSigType5=Digital
+OutputCue5=Center
+OutputSigType5=Digital
+ParamCue1=SmartObjectId
+ParamSigType1=Constant
+MPp=1
+Pp1=2
+CedH=2
+SmartObjId=2d
+]
+; Parameter Properties for Smart Object ID
+[
+ObjTp=Dp
+H=2
+Tp=1
+HD=TRUE
+DV=2d
+NF=1
+DNF=1
+EncFmt=0
+DVLF=1
+Sgn=0
+]
+; Smart Objects Definition section
+[
+ObjTp=CED
+H=2
+Name=Iphone_[Video] [Dpad] Dpad_sat_DPad_sat.ced
+;Cedver is the version of the Smart Graphics control, not the CED file format.
+;If the control definition changes, increment this.
+CedVer=1
+]
+;================================================================================
+[
+ObjTp=Symbol
+Name=Iphone_[Video] [Keypad] Keypad_sat_Keypad sat.ced
+Hint=Keypad sat (Smart Object ID=3)
+Code=3
+SGControlType=Simple Keypad
+SGControlName=Keypad sat
+GUID=16D28542-AD94-410C-BC70-2E7C05F18534
+SmplCName=Iphone_[Video] [Keypad] Keypad_sat_Keypad sat.ced
+SMWRev=4.02.19
+Expand=expand_random
+HelpID=10061
+;Define the number of inputs, outputs and parameters
+MinVariableInputs=12
+MaxVariableInputs=12
+MinVariableOutputs=12
+MaxVariableOutputs=12
+NumFixedParams=1
+MinVariableInputsList2=0
+MaxVariableInputsList2=0
+MinVariableOutputsList2=0
+MaxVariableOutputsList2=0
+MinVariableInputsList3=0
+MaxVariableInputsList3=0
+MinVariableOutputsList3=0
+MaxVariableOutputsList3=0
+;Define the cues, and signal types  each input, output and parameter.
+InputCue1=[~UNUSED3~]
+InputSigType1=Digital
+OutputCue1=1
+OutputSigType1=Digital
+InputCue2=[~UNUSED3~]
+InputSigType2=Digital
+OutputCue2=2
+OutputSigType2=Digital
+InputCue3=[~UNUSED3~]
+InputSigType3=Digital
+OutputCue3=3
+OutputSigType3=Digital
+InputCue4=[~UNUSED3~]
+InputSigType4=Digital
+OutputCue4=4
+OutputSigType4=Digital
+InputCue5=[~UNUSED3~]
+InputSigType5=Digital
+OutputCue5=5
+OutputSigType5=Digital
+InputCue6=[~UNUSED3~]
+InputSigType6=Digital
+OutputCue6=6
+OutputSigType6=Digital
+InputCue7=[~UNUSED3~]
+InputSigType7=Digital
+OutputCue7=7
+OutputSigType7=Digital
+InputCue8=[~UNUSED3~]
+InputSigType8=Digital
+OutputCue8=8
+OutputSigType8=Digital
+InputCue9=[~UNUSED3~]
+InputSigType9=Digital
+OutputCue9=9
+OutputSigType9=Digital
+InputCue10=[~UNUSED3~]
+InputSigType10=Digital
+OutputCue10=0
+OutputSigType10=Digital
+InputCue11=[~UNUSED3~]
+InputSigType11=Digital
+OutputCue11=Misc_1
+OutputSigType11=Digital
+InputCue12=[~UNUSED3~]
+InputSigType12=Digital
+OutputCue12=Misc_2
+OutputSigType12=Digital
+ParamCue1=SmartObjectId
+ParamSigType1=Constant
+MPp=1
+Pp1=3
+CedH=3
+SmartObjId=3d
+]
+; Parameter Properties for Smart Object ID
+[
+ObjTp=Dp
+H=3
+Tp=1
+HD=TRUE
+DV=3d
+NF=1
+DNF=1
+EncFmt=0
+DVLF=1
+Sgn=0
+]
+; Smart Objects Definition section
+[
+ObjTp=CED
+H=3
+Name=Iphone_[Video] [Keypad] Keypad_sat_Keypad sat.ced
+;Cedver is the version of the Smart Graphics control, not the CED file format.
+;If the control definition changes, increment this.
+CedVer=1
+]
+;================================================================================
+[
+ObjTp=Symbol
+Name=Iphone_[Video] [Dpad] Dpad_appletv_DPad_appletv.ced
+Hint=DPad_appletv (Smart Object ID=9)
+Code=4
+SGControlType=DPad
+SGControlName=DPad_appletv
+GUID=1551A8CD-AA60-4F31-B16C-5E5060E1CCC0
+SmplCName=Iphone_[Video] [Dpad] Dpad_appletv_DPad_appletv.ced
+SMWRev=4.02.19
+Expand=expand_random
+HelpID=10015
+;Define the number of inputs, outputs and parameters
+MinVariableInputs=5
+MaxVariableInputs=5
+MinVariableOutputs=5
+MaxVariableOutputs=5
+NumFixedParams=1
+MinVariableInputsList2=0
+MaxVariableInputsList2=0
+MinVariableOutputsList2=0
+MaxVariableOutputsList2=0
+MinVariableInputsList3=0
+MaxVariableInputsList3=0
+MinVariableOutputsList3=0
+MaxVariableOutputsList3=0
+;Define the cues, and signal types  each input, output and parameter.
+InputCue1=[~UNUSED3~]
+InputSigType1=Digital
+OutputCue1=Up
+OutputSigType1=Digital
+InputCue2=[~UNUSED3~]
+InputSigType2=Digital
+OutputCue2=Down
+OutputSigType2=Digital
+InputCue3=[~UNUSED3~]
+InputSigType3=Digital
+OutputCue3=Left
+OutputSigType3=Digital
+InputCue4=[~UNUSED3~]
+InputSigType4=Digital
+OutputCue4=Right
+OutputSigType4=Digital
+InputCue5=[~UNUSED3~]
+InputSigType5=Digital
+OutputCue5=Center
+OutputSigType5=Digital
+ParamCue1=SmartObjectId
+ParamSigType1=Constant
+MPp=1
+Pp1=4
+CedH=4
+SmartObjId=9d
+]
+; Parameter Properties for Smart Object ID
+[
+ObjTp=Dp
+H=4
+Tp=1
+HD=TRUE
+DV=9d
+NF=1
+DNF=1
+EncFmt=0
+DVLF=1
+Sgn=0
+]
+; Smart Objects Definition section
+[
+ObjTp=CED
+H=4
+Name=Iphone_[Video] [Dpad] Dpad_appletv_DPad_appletv.ced
+;Cedver is the version of the Smart Graphics control, not the CED file format.
+;If the control definition changes, increment this.
+CedVer=1
+]
+;================================================================================
+[
+ObjTp=Symbol
+Name=Iphone_[Video] [Dpad] Dpad_reciver_DPad_reciver.ced
+Hint=DPad_reciver (Smart Object ID=5)
+Code=5
+SGControlType=DPad
+SGControlName=DPad_reciver
+GUID=D8E98CA0-5678-4643-BC41-014A20A3FF8F
+SmplCName=Iphone_[Video] [Dpad] Dpad_reciver_DPad_reciver.ced
+SMWRev=4.02.19
+Expand=expand_random
+HelpID=10015
+;Define the number of inputs, outputs and parameters
+MinVariableInputs=5
+MaxVariableInputs=5
+MinVariableOutputs=5
+MaxVariableOutputs=5
+NumFixedParams=1
+MinVariableInputsList2=0
+MaxVariableInputsList2=0
+MinVariableOutputsList2=0
+MaxVariableOutputsList2=0
+MinVariableInputsList3=0
+MaxVariableInputsList3=0
+MinVariableOutputsList3=0
+MaxVariableOutputsList3=0
+;Define the cues, and signal types  each input, output and parameter.
+InputCue1=[~UNUSED3~]
+InputSigType1=Digital
+OutputCue1=Up
+OutputSigType1=Digital
+InputCue2=[~UNUSED3~]
+InputSigType2=Digital
+OutputCue2=Down
+OutputSigType2=Digital
+InputCue3=[~UNUSED3~]
+InputSigType3=Digital
+OutputCue3=Left
+OutputSigType3=Digital
+InputCue4=[~UNUSED3~]
+InputSigType4=Digital
+OutputCue4=Right
+OutputSigType4=Digital
+InputCue5=[~UNUSED3~]
+InputSigType5=Digital
+OutputCue5=Center
+OutputSigType5=Digital
+ParamCue1=SmartObjectId
+ParamSigType1=Constant
+MPp=1
+Pp1=5
+CedH=5
+SmartObjId=5d
+]
+; Parameter Properties for Smart Object ID
+[
+ObjTp=Dp
+H=5
+Tp=1
+HD=TRUE
+DV=5d
+NF=1
+DNF=1
+EncFmt=0
+DVLF=1
+Sgn=0
+]
+; Smart Objects Definition section
+[
+ObjTp=CED
+H=5
+Name=Iphone_[Video] [Dpad] Dpad_reciver_DPad_reciver.ced
+;Cedver is the version of the Smart Graphics control, not the CED file format.
+;If the control definition changes, increment this.
+CedVer=1
+]
+;================================================================================
+[
+ObjTp=Symbol
+Name=Iphone_[Video] [Dpad] Dpad_USB_DPad_usb.ced
+Hint=DPad_usb (Smart Object ID=8)
+Code=6
+SGControlType=DPad
+SGControlName=DPad_usb
+GUID=56BBF932-5670-4CAF-8A2F-EA488F9EEB78
+SmplCName=Iphone_[Video] [Dpad] Dpad_USB_DPad_usb.ced
+SMWRev=4.02.19
+Expand=expand_random
+HelpID=10015
+;Define the number of inputs, outputs and parameters
+MinVariableInputs=5
+MaxVariableInputs=5
+MinVariableOutputs=5
+MaxVariableOutputs=5
+NumFixedParams=1
+MinVariableInputsList2=0
+MaxVariableInputsList2=0
+MinVariableOutputsList2=0
+MaxVariableOutputsList2=0
+MinVariableInputsList3=0
+MaxVariableInputsList3=0
+MinVariableOutputsList3=0
+MaxVariableOutputsList3=0
+;Define the cues, and signal types  each input, output and parameter.
+InputCue1=[~UNUSED3~]
+InputSigType1=Digital
+OutputCue1=Up
+OutputSigType1=Digital
+InputCue2=[~UNUSED3~]
+InputSigType2=Digital
+OutputCue2=Down
+OutputSigType2=Digital
+InputCue3=[~UNUSED3~]
+InputSigType3=Digital
+OutputCue3=Left
+OutputSigType3=Digital
+InputCue4=[~UNUSED3~]
+InputSigType4=Digital
+OutputCue4=Right
+OutputSigType4=Digital
+InputCue5=[~UNUSED3~]
+InputSigType5=Digital
+OutputCue5=Center
+OutputSigType5=Digital
+ParamCue1=SmartObjectId
+ParamSigType1=Constant
+MPp=1
+Pp1=6
+CedH=6
+SmartObjId=8d
+]
+; Parameter Properties for Smart Object ID
+[
+ObjTp=Dp
+H=6
+Tp=1
+HD=TRUE
+DV=8d
+NF=1
+DNF=1
+EncFmt=0
+DVLF=1
+Sgn=0
+]
+; Smart Objects Definition section
+[
+ObjTp=CED
+H=6
+Name=Iphone_[Video] [Dpad] Dpad_USB_DPad_usb.ced
+;Cedver is the version of the Smart Graphics control, not the CED file format.
+;If the control definition changes, increment this.
+CedVer=1
+]
+;================================================================================
+[
+ObjTp=Symbol
+Name=Iphone_[Video] [Dpad] Dpad_tv_DPad tv.ced
+Hint=DPad tv (Smart Object ID=7)
+Code=7
+SGControlType=DPad
+SGControlName=DPad tv
+GUID=55677FAF-30EF-47B3-8C70-BBCED6EE5D3B
+SmplCName=Iphone_[Video] [Dpad] Dpad_tv_DPad tv.ced
+SMWRev=4.02.19
+Expand=expand_random
+HelpID=10015
+;Define the number of inputs, outputs and parameters
+MinVariableInputs=5
+MaxVariableInputs=5
+MinVariableOutputs=5
+MaxVariableOutputs=5
+NumFixedParams=1
+MinVariableInputsList2=0
+MaxVariableInputsList2=0
+MinVariableOutputsList2=0
+MaxVariableOutputsList2=0
+MinVariableInputsList3=0
+MaxVariableInputsList3=0
+MinVariableOutputsList3=0
+MaxVariableOutputsList3=0
+;Define the cues, and signal types  each input, output and parameter.
+InputCue1=[~UNUSED3~]
+InputSigType1=Digital
+OutputCue1=Up
+OutputSigType1=Digital
+InputCue2=[~UNUSED3~]
+InputSigType2=Digital
+OutputCue2=Down
+OutputSigType2=Digital
+InputCue3=[~UNUSED3~]
+InputSigType3=Digital
+OutputCue3=Left
+OutputSigType3=Digital
+InputCue4=[~UNUSED3~]
+InputSigType4=Digital
+OutputCue4=Right
+OutputSigType4=Digital
+InputCue5=[~UNUSED3~]
+InputSigType5=Digital
+OutputCue5=Center
+OutputSigType5=Digital
+ParamCue1=SmartObjectId
+ParamSigType1=Constant
+MPp=1
+Pp1=7
+CedH=7
+SmartObjId=7d
+]
+; Parameter Properties for Smart Object ID
+[
+ObjTp=Dp
+H=7
+Tp=1
+HD=TRUE
+DV=7d
+NF=1
+DNF=1
+EncFmt=0
+DVLF=1
+Sgn=0
+]
+; Smart Objects Definition section
+[
+ObjTp=CED
+H=7
+Name=Iphone_[Video] [Dpad] Dpad_tv_DPad tv.ced
+;Cedver is the version of the Smart Graphics control, not the CED file format.
+;If the control definition changes, increment this.
+CedVer=1
+]
+;================================================================================
+[
+ObjTp=Symbol
+Name=Iphone_[Video] [Keypad] Keypad_tv_Keypad tv.ced
+Hint=Keypad tv (Smart Object ID=6)
+Code=8
+SGControlType=Simple Keypad
+SGControlName=Keypad tv
+GUID=E63300AC-5C8C-4C8B-805E-9BD2296AF8AB
+SmplCName=Iphone_[Video] [Keypad] Keypad_tv_Keypad tv.ced
+SMWRev=4.02.19
+Expand=expand_random
+HelpID=10061
+;Define the number of inputs, outputs and parameters
+MinVariableInputs=12
+MaxVariableInputs=12
+MinVariableOutputs=12
+MaxVariableOutputs=12
+NumFixedParams=1
+MinVariableInputsList2=0
+MaxVariableInputsList2=0
+MinVariableOutputsList2=0
+MaxVariableOutputsList2=0
+MinVariableInputsList3=0
+MaxVariableInputsList3=0
+MinVariableOutputsList3=0
+MaxVariableOutputsList3=0
+;Define the cues, and signal types  each input, output and parameter.
+InputCue1=[~UNUSED3~]
+InputSigType1=Digital
+OutputCue1=1
+OutputSigType1=Digital
+InputCue2=[~UNUSED3~]
+InputSigType2=Digital
+OutputCue2=2
+OutputSigType2=Digital
+InputCue3=[~UNUSED3~]
+InputSigType3=Digital
+OutputCue3=3
+OutputSigType3=Digital
+InputCue4=[~UNUSED3~]
+InputSigType4=Digital
+OutputCue4=4
+OutputSigType4=Digital
+InputCue5=[~UNUSED3~]
+InputSigType5=Digital
+OutputCue5=5
+OutputSigType5=Digital
+InputCue6=[~UNUSED3~]
+InputSigType6=Digital
+OutputCue6=6
+OutputSigType6=Digital
+InputCue7=[~UNUSED3~]
+InputSigType7=Digital
+OutputCue7=7
+OutputSigType7=Digital
+InputCue8=[~UNUSED3~]
+InputSigType8=Digital
+OutputCue8=8
+OutputSigType8=Digital
+InputCue9=[~UNUSED3~]
+InputSigType9=Digital
+OutputCue9=9
+OutputSigType9=Digital
+InputCue10=[~UNUSED3~]
+InputSigType10=Digital
+OutputCue10=0
+OutputSigType10=Digital
+InputCue11=[~UNUSED3~]
+InputSigType11=Digital
+OutputCue11=Misc_1
+OutputSigType11=Digital
+InputCue12=[~UNUSED3~]
+InputSigType12=Digital
+OutputCue12=Misc_2
+OutputSigType12=Digital
+ParamCue1=SmartObjectId
+ParamSigType1=Constant
+MPp=1
+Pp1=8
+CedH=8
+SmartObjId=6d
+]
+; Parameter Properties for Smart Object ID
+[
+ObjTp=Dp
+H=8
+Tp=1
+HD=TRUE
+DV=6d
+NF=1
+DNF=1
+EncFmt=0
+DVLF=1
+Sgn=0
+]
+; Smart Objects Definition section
+[
+ObjTp=CED
+H=8
+Name=Iphone_[Video] [Keypad] Keypad_tv_Keypad tv.ced
+;Cedver is the version of the Smart Graphics control, not the CED file format.
+;If the control definition changes, increment this.
+CedVer=1
+]
+;================================================================================
+[
+ObjTp=Symbol
+Name=Iphone_[Video] [Dpad] Dpad_oppo_DPad oppo.ced
+Hint=DPad oppo (Smart Object ID=10)
+Code=9
+SGControlType=DPad
+SGControlName=DPad oppo
+GUID=83FC3B1C-DE06-4D0E-94DB-6DE41ABCCAEF
+SmplCName=Iphone_[Video] [Dpad] Dpad_oppo_DPad oppo.ced
+SMWRev=4.02.19
+Expand=expand_random
+HelpID=10015
+;Define the number of inputs, outputs and parameters
+MinVariableInputs=5
+MaxVariableInputs=5
+MinVariableOutputs=5
+MaxVariableOutputs=5
+NumFixedParams=1
+MinVariableInputsList2=0
+MaxVariableInputsList2=0
+MinVariableOutputsList2=0
+MaxVariableOutputsList2=0
+MinVariableInputsList3=0
+MaxVariableInputsList3=0
+MinVariableOutputsList3=0
+MaxVariableOutputsList3=0
+;Define the cues, and signal types  each input, output and parameter.
+InputCue1=[~UNUSED3~]
+InputSigType1=Digital
+OutputCue1=Up
+OutputSigType1=Digital
+InputCue2=[~UNUSED3~]
+InputSigType2=Digital
+OutputCue2=Down
+OutputSigType2=Digital
+InputCue3=[~UNUSED3~]
+InputSigType3=Digital
+OutputCue3=Left
+OutputSigType3=Digital
+InputCue4=[~UNUSED3~]
+InputSigType4=Digital
+OutputCue4=Right
+OutputSigType4=Digital
+InputCue5=[~UNUSED3~]
+InputSigType5=Digital
+OutputCue5=Center
+OutputSigType5=Digital
+ParamCue1=SmartObjectId
+ParamSigType1=Constant
+MPp=1
+Pp1=9
+CedH=9
+SmartObjId=10d
+]
+; Parameter Properties for Smart Object ID
+[
+ObjTp=Dp
+H=9
+Tp=1
+HD=TRUE
+DV=10d
+NF=1
+DNF=1
+EncFmt=0
+DVLF=1
+Sgn=0
+]
+; Smart Objects Definition section
+[
+ObjTp=CED
+H=9
+Name=Iphone_[Video] [Dpad] Dpad_oppo_DPad oppo.ced
+;Cedver is the version of the Smart Graphics control, not the CED file format.
+;If the control definition changes, increment this.
+CedVer=1
+]
+;================================================================================
+[
+ObjTp=Symbol
+Name=Iphone_[Video] [Keypad] Keypad_oppo_Keypad oppo.ced
+Hint=Keypad oppo (Smart Object ID=4)
+Code=10
+SGControlType=Simple Keypad
+SGControlName=Keypad oppo
+GUID=019A8CCE-C700-4153-A232-77F84FDFEC60
+SmplCName=Iphone_[Video] [Keypad] Keypad_oppo_Keypad oppo.ced
+SMWRev=4.02.19
+Expand=expand_random
+HelpID=10061
+;Define the number of inputs, outputs and parameters
+MinVariableInputs=12
+MaxVariableInputs=12
+MinVariableOutputs=12
+MaxVariableOutputs=12
+NumFixedParams=1
+MinVariableInputsList2=0
+MaxVariableInputsList2=0
+MinVariableOutputsList2=0
+MaxVariableOutputsList2=0
+MinVariableInputsList3=0
+MaxVariableInputsList3=0
+MinVariableOutputsList3=0
+MaxVariableOutputsList3=0
+;Define the cues, and signal types  each input, output and parameter.
+InputCue1=[~UNUSED3~]
+InputSigType1=Digital
+OutputCue1=1
+OutputSigType1=Digital
+InputCue2=[~UNUSED3~]
+InputSigType2=Digital
+OutputCue2=2
+OutputSigType2=Digital
+InputCue3=[~UNUSED3~]
+InputSigType3=Digital
+OutputCue3=3
+OutputSigType3=Digital
+InputCue4=[~UNUSED3~]
+InputSigType4=Digital
+OutputCue4=4
+OutputSigType4=Digital
+InputCue5=[~UNUSED3~]
+InputSigType5=Digital
+OutputCue5=5
+OutputSigType5=Digital
+InputCue6=[~UNUSED3~]
+InputSigType6=Digital
+OutputCue6=6
+OutputSigType6=Digital
+InputCue7=[~UNUSED3~]
+InputSigType7=Digital
+OutputCue7=7
+OutputSigType7=Digital
+InputCue8=[~UNUSED3~]
+InputSigType8=Digital
+OutputCue8=8
+OutputSigType8=Digital
+InputCue9=[~UNUSED3~]
+InputSigType9=Digital
+OutputCue9=9
+OutputSigType9=Digital
+InputCue10=[~UNUSED3~]
+InputSigType10=Digital
+OutputCue10=0
+OutputSigType10=Digital
+InputCue11=[~UNUSED3~]
+InputSigType11=Digital
+OutputCue11=Misc_1
+OutputSigType11=Digital
+InputCue12=[~UNUSED3~]
+InputSigType12=Digital
+OutputCue12=Misc_2
+OutputSigType12=Digital
+ParamCue1=SmartObjectId
+ParamSigType1=Constant
+MPp=1
+Pp1=10
+CedH=10
+SmartObjId=4d
+]
+; Parameter Properties for Smart Object ID
+[
+ObjTp=Dp
+H=10
+Tp=1
+HD=TRUE
+DV=4d
+NF=1
+DNF=1
+EncFmt=0
+DVLF=1
+Sgn=0
+]
+; Smart Objects Definition section
+[
+ObjTp=CED
+H=10
+Name=Iphone_[Video] [Keypad] Keypad_oppo_Keypad oppo.ced
+;Cedver is the version of the Smart Graphics control, not the CED file format.
+;If the control definition changes, increment this.
+CedVer=1
+]

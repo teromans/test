@@ -1,0 +1,1016 @@
+#CATEGORY "28" // Receiver/Processor
+#SYMBOL_NAME "AVR-550 Single Zone 1/2 V1"
+#HINT "Master & Zone control module for Arcam AVR-550"
+#HELP_BEGIN
+*********************************
+* © 2016 Lucid Partnership LLP  *
+*      All Rights Reserved      *
+*  www.lucidpartnership.co.uk   *
+*********************************
+Version 1.0 21/01/16
+	- Initial Release
+
+SEE PDF File AVR-550 Help.PDF
+
+Serial Communication via Bi-Directional  COM port.
+
+BAUD Rate   38400
+DATA Bits   8
+STOP Bits   1
+PARITY None
+
+CABLE TYPE IS NULL MODEM
+
+PIN 2 - PIN 3
+PIN 3 - PIN 2
+PIN 5 - PIN 5
+
+#HELP_END
+
+
+#DEFINE_CONSTANT	ActionDelay		30
+#DEFINE_CONSTANT	VolumeDelay		20
+#DEFINE_CONSTANT	HoldTime		150
+#DEFINE_CONSTANT	Stx				0x21
+#DEFINE_CONSTANT	Etx				0x0D
+#DEFINE_CONSTANT	RC5				0x08
+#DEFINE_CONSTANT	PowerWaitTime	50
+#DEFINE_CONSTANT	PollTime		200
+#DEFINE_CONSTANT    NavRepeat		20
+                    
+#DEFINE_CONSTANT	PON				0x08
+#DEFINE_CONSTANT	RXTimeout		50
+
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+//#ENABLE_TRACE
+
+INTEGER_PARAMETER	Zone;
+#BEGIN_PARAMETER_PROPERTIES Zone
+
+   propValidUnits = unitDecimal|unitHex;
+   propDefaultUnit= unitDecimal;
+   propBounds=1d , 2d;
+   propDefaultValue=1d;
+   propShortDescription= "Zone Number of AVR-550 to be controlled";
+
+#END_PARAMETER_PROPERTIES
+
+
+DIGITAL_INPUT	_SKIP_;
+DIGITAL_INPUT 	Enable;
+DIGITAL_INPUT	_SKIP_;
+DIGITAL_INPUT	PowerOn;
+DIGITAL_INPUT	PowerOff;
+DIGITAL_INPUT	_SKIP_;
+DIGITAL_INPUT	Input_CD;
+DIGITAL_INPUT	Input_BD;
+DIGITAL_INPUT	Input_AV;
+DIGITAL_INPUT	Input_SAT;
+DIGITAL_INPUT	Input_PVR;
+DIGITAL_INPUT	Input_VCR;
+DIGITAL_INPUT	_SKIP_;//Input_TAPE;
+DIGITAL_INPUT	Input_AUX;
+DIGITAL_INPUT	Input_DISPLAY;
+DIGITAL_INPUT	Input_FM;
+DIGITAL_INPUT	Input_STB;
+DIGITAL_INPUT	Input_DAB;
+DIGITAL_INPUT	Input_USB;
+DIGITAL_INPUT	Input_NET;
+DIGITAL_INPUT	Input_GAME;
+DIGITAL_INPUT	_SKIP_;
+DIGITAL_INPUT	MuteOn;
+DIGITAL_INPUT	MuteOff;
+DIGITAL_INPUT	MuteOnOff;
+DIGITAL_INPUT	_SKIP_;
+DIGITAL_INPUT	DirectOnOffZ1;
+DIGITAL_INPUT	_SKIP_;
+DIGITAL_INPUT	NavUp_PresetUp;
+DIGITAL_INPUT	NavDn_PresetDn;
+DIGITAL_INPUT	NavLeft_TuneDn;
+DIGITAL_INPUT	NavRight_TuneUp;
+DIGITAL_INPUT	Navigate_OK;
+DIGITAL_INPUT	ScanUp;
+DIGITAL_INPUT	ScanDn;
+DIGITAL_INPUT	EnableTunerUpdates;
+DIGITAL_INPUT	_SKIP_;
+DIGITAL_INPUT	Red;
+DIGITAL_INPUT	Green;
+DIGITAL_INPUT	Yellow;
+DIGITAL_INPUT	Blue;
+DIGITAL_INPUT	Menu;
+DIGITAL_INPUT	PopUp;
+DIGITAL_INPUT	_SKIP_;
+DIGITAL_INPUT	_SKIP_;
+DIGITAL_INPUT	_SKIP_;
+DIGITAL_INPUT	DecodeModeNext;
+DIGITAL_INPUT	_SKIP_;
+DIGITAL_INPUT	_SKIP_;
+DIGITAL_INPUT	ResolutionNextZ1;
+DIGITAL_INPUT	_SKIP_;
+DIGITAL_INPUT	VolumeUp;
+DIGITAL_INPUT	VolumeDown;
+
+//ANALOG_INPUT	DecodeMode;
+ANALOG_INPUT	SetVolume;
+ANALOG_INPUT	_SKIP_;
+ANALOG_INPUT	RecallPreset;
+ANALOG_INPUT	StorePreset;
+ANALOG_INPUT	_SKIP_;
+ANALOG_INPUT  	SourceSelect;
+ANALOG_INPUT	_SKIP_;
+BUFFER_INPUT	Zone2Tx$[400];
+BUFFER_INPUT	_SKIP_;
+BUFFER_INPUT	Rx$[2500];
+
+DIGITAL_OUTPUT	_SKIP_;
+DIGITAL_OUTPUT	_SKIP_;
+DIGITAL_OUTPUT	_SKIP_;
+DIGITAL_OUTPUT	PowerOnFb;
+DIGITAL_OUTPUT	PowerOffFB;
+DIGITAL_OUTPUT	_SKIP_;
+DIGITAL_OUTPUT	Input_CD_Fb;
+DIGITAL_OUTPUT	Input_DVD_Fb;
+DIGITAL_OUTPUT	Input_AV_Fb;
+DIGITAL_OUTPUT	Input_SAT_Fb;
+DIGITAL_OUTPUT	Input_PVR_Fb;
+DIGITAL_OUTPUT	Input_VCR_Fb;
+DIGITAL_OUTPUT	_SKIP_;//Input_TAPE_Fb;
+DIGITAL_OUTPUT	Input_AUX_Fb;
+DIGITAL_OUTPUT	Input_DISPLAY_Fb;
+DIGITAL_OUTPUT	Input_FM_Fb;
+DIGITAL_OUTPUT	Input_STB_Fb;
+DIGITAL_OUTPUT	Input_DAB_Fb;
+DIGITAL_OUTPUT	Input_USB_Fb;
+DIGITAL_OUTPUT	Input_NET_Fb;
+DIGITAL_OUTPUT	Input_GAME_Fb;
+DIGITAL_OUTPUT	_SKIP_;
+DIGITAL_OUTPUT	MuteOnFb;
+DIGITAL_OUTPUT	MuteOffFb;
+DIGITAL_OUTPUT	_SKIP_;
+DIGITAL_OUTPUT	_SKIP_;
+DIGITAL_OUTPUT	DirectFb;
+
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	TunerFreqFb$;
+STRING_OUTPUT	RDS_Genre$;
+STRING_OUTPUT	RDS_DABType$;
+STRING_OUTPUT	RDS_DLS_Info$;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	DABStation$;
+STRING_OUTPUT	NETStatus$;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	DecodeMode2CH$;
+STRING_OUTPUT	DecodeModeMCH$;
+STRING_OUTPUT	_SKIP_;
+ANALOG_OUTPUT	OutputResolutionFb;
+STRING_OUTPUT	_SKIP_;
+ANALOG_OUTPUT	VolumeFb;
+STRING_OUTPUT	Volume$;
+
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	_SKIP_;
+ANALOG_OUTPUT	TunerPresetFb;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	_SKIP_;
+ANALOG_OUTPUT	SourceFb;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	Zone2Rx$;
+STRING_OUTPUT	_SKIP_;
+STRING_OUTPUT	Tx$;
+//ANALOG_OUTPUT	LenRx;
+
+/********************************** variables ***********************************/
+INTEGER  Busy, RxFull, RxWait, PowerUnsure, VolumeUpHeld, VolumeDnHeld, PollWait, LastSource;
+INTEGER  DecodeMode2Fb, DecodeMode7Fb, Zone1TxBusy, Zone2TxBusy, Zone3TxBusy, Idle, WaitingReply, RxFail;
+INTEGER	 PowerRequired;
+STRING   ThisCommand[255];
+STRING   ActionList[10];
+INTEGER  Zone2TxFull;
+STRING   Zone2Command[10];
+INTEGER	 Zone2Wait;
+INTEGER  NewPreset;
+
+/********************************* Event Handlers ********************************/  
+FUNCTION SetSourceFb(INTEGER NewSource)
+{
+	IF (NewSource <> LastSource)
+	{
+		Input_CD_Fb = Off;
+		Input_DVD_Fb = Off;
+		Input_AV_Fb = Off;
+		Input_SAT_Fb = Off;
+		Input_PVR_Fb = Off;
+		Input_VCR_Fb = Off;
+		//Input_TAPE_Fb = Off;
+		Input_AUX_Fb = Off;
+		Input_DISPLAY_Fb = Off;
+		Input_FM_Fb = Off;
+		Input_STB_Fb = Off;
+		Input_DAB_Fb = Off;
+		Input_USB_Fb = Off;
+		Input_NET_Fb = Off;
+		Input_GAME_Fb = Off;
+		SWITCH(NewSource)
+		{
+			CASE(0x01): Input_CD_Fb = On;
+			CASE(0x02): Input_DVD_Fb = On;
+			CASE(0x03): Input_AV_Fb = On;
+			CASE(0x04): Input_SAT_Fb = On;
+			CASE(0x05): Input_PVR_Fb = On;
+			CASE(0x06): Input_VCR_Fb = On;
+			//CASE(0x07): Input_TAPE_Fb = On;
+			CASE(0x08): Input_AUX_Fb = On;
+			CASE(0x09): Input_DISPLAY_Fb = On;	
+			CASE(0x10): Input_STB_Fb = On;
+			//CASE(0x0A): Input_AM_Fb = On;
+			CASE(0x0B): Input_FM_Fb = On;
+			CASE(0x0C): Input_DAB_Fb = On;
+			CASE(0x0F): Input_USB_Fb = On;
+			CASE(0x0E): Input_NET_Fb = On;
+			CASE(0x11): Input_GAME_Fb = On; 
+		}
+		LastSource = NewSource;
+		SourceFB = NewSource;
+	}		
+}
+FUNCTION WaitForReply(INTEGER Set)
+{
+	IF(Set && !WaitingReply)
+	{
+		WAIT(RXTimeout,AnyReply)
+		{
+			RxFail = ON;
+			TRACE("AVR550 Waiting Rx Failed\n");
+		}
+	}
+	ELSE IF(!Set)
+	{
+		CANCELWAIT(AnyReply);
+		RxFail = OFF;			
+	}
+}
+FUNCTION SendCmd(INTEGER NewCmd, INTEGER DataLength, INTEGER DATA1, INTEGER DATA2)
+{
+	Zone1TxBusy = On;
+	IF (DataLength = 1) MAKESTRING(tx$,"%c%c%c%c%c%c",STX,ZONE,NewCmd,DataLength,Data1,Etx);
+	ELSE IF (DataLength = 2) MAKESTRING(tx$,"%c%c%c%c%c%c%c",STX,ZONE,NewCmd,DataLength,Data1,Data2,Etx);
+	ELSE IF ((NewCmd = RC5) && (DATA1 = 16) && (DATA2 = 28))  //Send Preset Location after initial command
+	{
+		DELAY(50);
+		SendCmd(RC5,2,16,StorePreset);
+	}
+	ELSE IF ((NewCmd = 0x15)) // Send OK after preset recall
+	{
+		DELAY(20);
+		SendCmd(RC5,2,16,87);
+	}
+	WaitForReply(ON);
+	Zone1TxBusy = Off;
+	//TRACE("Command Sent=%X, Bytes=%d, [%X,%X]\n",NewCmd,DataLength,Data1,Data2);
+}
+
+FUNCTION SendZone2(STRING Zone2CMD)
+{
+	WHILE(Zone1TxBusy)
+	{
+		Zone2Wait =Zone2Wait +1;
+		DELAY(1);
+		TRACE("Zone 2 CND Wait %d\n",Zone2Wait);
+		IF (Zone2Wait > 100) BREAK;		
+	}
+	IF(!Zone1TxBusy)
+	{
+		Zone2Wait = 0;
+		Zone2TxBusy = On;
+	    Tx$ = Zone2CMD;
+		Zone2TxBusy = Off;
+	}
+}
+FUNCTION Decode(STRING ThisRx)
+{
+	INTEGER RxCmd;
+	
+	IF(BYTE(ThisRx,2) = Zone)
+	{
+		RxCmd = BYTE(ThisRx,3);		
+		IF(BYTE(ThisRx,4) = 0x00) //Status Update
+		{ 			
+			SWITCH(RxCmd)
+			{
+				CASE(0x00): //Power State
+				{
+					IF(!PowerUnsure && ((BYTE(ThisRx,6)=1) || (BYTE(ThisRx,6)=0)))
+					{
+						PowerOnFb =  BYTE(ThisRx,6);
+						PowerOffFb =!BYTE(ThisRx,6);
+						IF(PowerRequired && !PowerOnFb) SETBYTE(ActionList,1,0x31);
+						IF(!PowerRequired && !PowerOffFb) SETBYTE(ActionList,1,0x32);
+						IF(BYTE(ActionList,1) = 0x34) SETBYTE(ActionList,1,0x35);
+						IF(PowerOffFB) SetSourceFB(0);
+					}
+				}
+				CASE(0x03):// RDS Genre
+				{
+					RDS_Genre$ = MID(ThisRx,6,BYTE(ThisRx,5));
+				}
+
+				CASE(0x08): // RC5 Command Relpy
+				{
+					
+				}
+				CASE(0x09): // RC6 Command Relpy
+				{
+					
+				}
+				CASE(0x0C): // Video Mode
+				{
+					
+				}
+				CASE(0x0D): //Volume Update
+				{
+					TRACE("Volume Rx Z=%X,[D1=%X, D2=%X]\n",BYTE(ThisRx,2),BYTE(ThisRx,6),BYTE(ThisRx,7) );
+					IF(BYTE(ThisRx,2) = 0x01)
+					{				
+						IF(BYTE(ThisRx,6) = 99) VolumeFb = 65535;
+						ELSE VolumeFb = (662 * BYTE(ThisRx,6));
+						MAKESTRING(Volume$,"%02d.0",BYTE(ThisRx,6));
+					}
+					IF((BYTE(ThisRx,2) = 0x02) || (BYTE(ThisRx,2) = 0x03))
+					{				
+						IF(BYTE(ThisRx,6) = 99) VolumeFb = 65535;
+						ELSE VolumeFb = (662 * BYTE(ThisRx,6));
+						MAKESTRING(Volume$,"%02d.0",BYTE(ThisRx,6));
+					}
+				}
+				CASE(0x0E): //Mute Update
+				{
+					IF((BYTE(ThisRx,6)=1) || (BYTE(ThisRx,6)=0))
+					{
+						MuteOnFb = !BYTE(ThisRx,6);
+						MuteOffFb = BYTE(ThisRx,6);
+					}
+				}
+				CASE(0x0F): //Direct Update
+				{
+					IF((BYTE(ThisRx,6)=1) || (BYTE(ThisRx,6)=0))
+					{
+						DirectFb =  BYTE(ThisRx,6);
+					}
+				}
+				CASE(0x10):// Decode Mode 2CH
+				{
+					DecodeMode2Fb = BYTE(ThisRx,6);
+					SWITCH(DecodeMode2Fb)
+					{
+						CASE(0): DecodeMode2CH$ = "Mono";
+						CASE(1): DecodeMode2CH$ = "Stereo";
+						CASE(2): DecodeMode2CH$ = "Pro Logic II / x Movie Mode";
+						CASE(3): DecodeMode2CH$ = "Pro Logic II / x Music Mode";
+						CASE(4): DecodeMode2CH$ = "Pro Logic II Matrix";
+						CASE(5): DecodeMode2CH$ = "Pro Logic II Game";
+						CASE(6): DecodeMode2CH$ = "Dolby Pro Logic Emulation";
+						CASE(7): DecodeMode2CH$ = "Neo:6 Cinema";
+						CASE(8): DecodeMode2CH$ = "Neo:6 Music";
+					}			
+				}
+				CASE(0x11):// Decode Mode MCH
+				{
+					DecodeMode7Fb = BYTE(ThisRx,6);
+					SWITCH(DecodeMode7Fb)
+					{
+						CASE(00): DecodeModeMCH$ = "Mono down-mix";
+						CASE(01): DecodeModeMCH$ = "Stereo down-mix";
+						CASE(02): DecodeModeMCH$ = "Multi-channel mode";
+						CASE(03): DecodeModeMCH$ = "Dolby EX / DTS-ES mode";
+						CASE(04): DecodeModeMCH$ = "Pro Logic IIx movie mode";
+						CASE(05): DecodeModeMCH$ = "Pro Logic IIx music mode";
+					}			
+				}
+				CASE(0x12):// RDS Info
+				{
+					RDS_DABType$ = MID(ThisRx,6,BYTE(ThisRx,5));
+				}
+				CASE(0x13):// Output Resolution
+				{
+					OutputResolutionFb = BYTE(ThisRx,6);				
+				}
+				CASE(0x14):// Menu Status
+				{
+					
+				}
+				CASE(0x15):// Tuner Preset
+				{
+					IF(BYTE(ThisRx,6)=0xFF) TunerPresetFb = 00;
+					ELSE TunerPresetFb = BYTE(ThisRx,6);
+				}
+				CASE(0x16):// Tuner Frequency
+				{
+					IF(SourceFB = 0x0A) MAKESTRING(TunerFreqFb$,"%02d%02dKhz",BYTE(ThisRx,6),BYTE(ThisRx,7));
+					IF(SourceFB = 0x0B) MAKESTRING(TunerFreqFb$,"%02d.%dMhz",BYTE(ThisRx,6),BYTE(ThisRx,7));
+				}
+				CASE(0x18):// DAB Station
+				{
+					DABStation$ = MID(ThisRx,6,BYTE(ThisRx,5));
+				}
+				CASE(0x19):// RDS Programe Type
+				{
+					RDS_DABType$ = MID(ThisRx,6,BYTE(ThisRx,5));
+				}
+				CASE(0x1A):// RDS/DLS Information
+				{
+					RDS_DLS_info$ = MID(ThisRx,6,BYTE(ThisRx,5));
+				}
+				CASE(0x1C):// Net Status
+				{
+					IF(BYTE(ThisRx,6)=0) NetStatus$ = "Navigating";
+					ELSE IF(BYTE(ThisRx,6)=1) NetStatus$ = "Playing";
+					ELSE IF(BYTE(ThisRx,6)=2) NetStatus$ = "Paused";
+					ELSE IF(BYTE(ThisRx,6)=3) NetStatus$ = "Busy/Not Playing";
+				}
+				CASE(0x1D): //Source Update
+				{			
+					TRACE("Source Rx =%X,Z=%X [D1=%X, D2=%X]\n",RxCmd,BYTE(ThisRx,2),BYTE(ThisRx,6),BYTE(ThisRx,7) );
+					IF(!PowerOffFB) SetSourceFb(BYTE(ThisRx,6));
+				}
+				DEFAULT:
+				{
+					TRACE("Not Decoded Rx =%X,[D1=%X, D2=%X]\n",RxCmd,BYTE(ThisRx,6),BYTE(ThisRx,7) );
+				}			
+			}
+		}
+	}
+	ELSE
+	{
+		IF(Zone = 1)
+		{
+			IF(BYTE(ThisRx,2) = 2) Zone2Rx$ = ThisRx;
+		}
+	}
+}
+CHANGE Zone2Tx$
+{
+	IF(!Zone2TxFull)
+	{
+		Zone2TxFull = On;
+		WHILE((LEN(Zone2Tx$) > 5))
+		{
+			IF( BYTE(Zone2Tx$,1) = STX)
+			{		
+				Zone2Command = REMOVEBYLENGTH( BYTE(Zone2Tx$,4)+5,Zone2Tx$ );
+				TRACE("Z2 CMS %s\n",Zone2Command);
+				SendZone2(Zone2Command); 
+			}                    
+			ELSE
+			{
+				CLEARBUFFER(Zone2Tx$); //Delete Trash
+				TRACE("Removed Z2 Trash\n");		
+			}
+		}
+		Zone2TxFull = Off;		
+	}		
+}
+
+FUNCTION Strip()
+{
+	STRING Bin[100];
+	BIN = BIN + CHR(GETC(Rx$));
+	WHILE(LEN(Rx$) && (BYTE(Rx$,1) <> STX))
+	{
+		BIN = BIN + CHR(GETC(Rx$));
+	}
+	TRACE ("AVR550; Deleted %d Rx Bytes\n",LEN(Bin));
+}
+FUNCTION TIMEOUT()
+{
+	IF(!RxWait)
+	{
+		TRACE("AVR550 Waiting for end of data\n");
+		RxWait = ON;
+		WAIT(RxTimeout,RxWaiting)
+		{
+			TRACE("AVR550 Rx Timeout\n");
+			Strip();
+			RxWait = OFF;
+		}	
+	}
+}
+CHANGE Rx$
+{
+	WaitForReply(Off);
+	IF(!RxFull)
+	{
+		RxFull = On;
+		DELAY(1);
+		IF (BYTE(Rx$,1) <> STX)
+		{
+			TRACE("AVR550 Rx Sting malformed, No STX.. Data so far=%s\n", LEFT(rx$,10));
+			IF (FIND(CHR(STX),Rx$))
+			{
+				Strip(); //Bad String Trap			
+			} 
+			ELSE	CLEARBUFFER(Rx$); //Bad String Trap
+		}
+		WHILE((LEN(Rx$) > 5))
+		{
+			//LenRx = LEN(Rx$);
+			IF( (BYTE(Rx$,1) = STX) && (LEN(Rx$)>=(BYTE(Rx$,5)+6)) && (Byte(Rx$,(Byte(Rx$,5)+6)) = Etx))
+			{		
+				CANCELWAIT(RxWaiting);
+				ThisCommand = REMOVEBYLENGTH( BYTE(Rx$,5)+6,Rx$ );
+				Decode(ThisCommand); 
+			}                    
+			ELSE IF( (BYTE(Rx$,1) = STX) && ( LEN(Rx$) < (BYTE(Rx$,5)+6) ))
+			{
+				TRACE("AVR550Rx Sting too short, Clearing so far=%s\n", ThisCommand);
+				TIMEOUT(); //Start wait for data;
+				//Strip(); //Bad String Trap
+			}
+			ELSE IF( (BYTE(Rx$,1) = STX) && (LEN(Rx$)>=(BYTE(Rx$,5)+6)) && (Byte(Rx$,(Byte(Rx$,5)+6)) <> Etx))
+			{
+				TRACE("AVR550 Rx Sting malformed, No ETX.. so far=%s\n", ThisCommand);
+				Strip(); //Bad String Trap
+			}
+			DELAY(1);
+		}
+		RxFull = Off;
+	}
+}
+
+FUNCTION PowerWait(INTEGER State)
+{
+	IF(!PowerUnsure)
+	{
+		PowerUnsure = On;
+		WAIT(PowerWaitTime * State,WaitingForPower)
+		{
+			SETBYTE(ActionList,1,0x39);
+		}
+		PowerUnsure = Off;		
+	}	
+}
+PUSH Enable
+{
+	IF(!Busy)
+	{
+		Busy = On;
+		SETBYTE(ActionList,1,0x39);  //Check Status
+		WHILE(Enable)
+		{
+		 	//TRACE("AVR550 Loop %ld",ATOL(ActionList));
+			IF(ATOL(ActionList))
+		 	{
+		 		IF( BYTE(ActionList,1) = 0x39 ) //Check Power State
+		 		{
+					IF(!RxFail) SETBYTE(ActionList,1,0x38);
+					SendCmd(0x00,1,0xF0,0x00);			
+		 		}
+		 		ELSE IF( BYTE(ActionList,1) = 0x38 ) //Check Mute State
+		 		{
+					SETBYTE(ActionList,1,0x37);
+					SendCmd(0x0E,1,0xF0,0x00); //This has been disabled as the reply is out of sync.			
+		 		}
+		 		ELSE IF( BYTE(ActionList,1) = 0x37 ) //Check Vol State
+		 		{
+					SETBYTE(ActionList,1,0x36);
+					SendCmd(0x0D,1,0xF0,0x00);			
+		 		}
+		 		ELSE IF( BYTE(ActionList,1) = 0x36 ) //Check Source
+		 		{
+					SETBYTE(ActionList,1,0x30);
+					SendCmd(0x1D,1,0xF0,0x00);			
+		 		}
+		 		IF( BYTE(ActionList,1) = 0x31 ) //Set Power On
+		 		{
+					SETBYTE(ActionList,1,0x30);
+					SendCmd(RC5,2,16,123);
+					PowerRequired = ON;
+					POWERWAIT(3);			
+		 		}
+		 		ELSE IF( BYTE(ActionList,1) = 0x32 ) //Set Power Off
+		 		{
+		 			SETBYTE(ActionList,1,0x30);
+					SendCmd(RC5,2,16,124);
+					PowerRequired = OFF;
+					POWERWAIT(6); 	
+		 		}
+		 		ELSE IF( BYTE(ActionList,1) = 0x33 ) //Auto Power On
+		 		{
+		 			SETBYTE(ActionList,1,0x34);
+					SendCmd(RC5,2,16,123);
+					POWERWAIT(6); 	
+		 		}
+		 		ELSE IF( BYTE(ActionList,2) = 0x31 ) //Set Mute On
+		 		{
+		 			SETBYTE(ActionList,2,0x30);
+					SendCmd(RC5,2,16,26);	
+		 		}
+		 		ELSE IF( BYTE(ActionList,2) = 0x32 ) //Set Mute Off
+		 		{
+		 			SETBYTE(ActionList,2,0x30);
+					SendCmd(RC5,2,16,120);	
+		 		}
+		 		ELSE IF( BYTE(ActionList,3) = 0x31 ) //Volume Up
+		 		{
+		 			SETBYTE(ActionList,3,0x30);
+					IF(VolumeFB < 65535) SendCmd(RC5,2,16,16);	
+		 		}
+		 		ELSE IF( BYTE(ActionList,3) = 0x32 ) //Volume Down
+		 		{
+		 			SETBYTE(ActionList,3,0x30);
+					IF(VolumeFB > 0) SendCmd(RC5,2,16,17);	
+		 		}
+		 		ELSE IF( BYTE(ActionList,3) = 0x33 ) //Volume Set
+		 		{
+		 			SETBYTE(ActionList,3,0x30);
+		 			IF(Zone = 1)
+		 			{
+		 				SendCmd(0x0D,1,(SetVolume/331)+1,0x00);
+		 		    }
+		 			ELSE
+		 			{
+		 				SendCmd(0x0D,1,(SetVolume/622)+1,0x00);
+		 			}	
+		 		}
+		 		ELSE IF( BYTE(ActionList,3) = 0x33 ) //Direct Mode
+		 		{
+		 			SETBYTE(ActionList,3,0x34);
+					SendCmd(RC5,2,16,10);	
+		 		}
+		 		ELSE IF( BYTE(ActionList,3) = 0x34 ) //Direct Mode test 
+		 		{
+		 			SETBYTE(ActionList,3,0x30);
+					SendCmd(0x0F,1,0x01,0);	
+		 		}
+		 		ELSE IF( BYTE(ActionList,3) = 0x35 ) //Next Decode Mode 
+		 		{
+		 			SETBYTE(ActionList,3,0x30);
+		 			SETBYTE(ActionList,6,0x31);
+					SendCmd(RC5,2,16,32);	
+		 		}
+		 		ELSE IF( (BYTE(ActionList,4) <> 0x30) || (BYTE(ActionList,5) <> 0x30)) //Source Change
+		 		{
+		 			TRACE("Source Change[B4=%X][B5=%X]\n",BYTE(ActionList,4),BYTE(ActionList,5));
+		 			IF(!PowerOnFb)
+		 			{
+		 				IF( BYTE(ActionList,1) = 0x30 )	SETBYTE(ActionList,1,0x33);
+		                IF( BYTE(ActionList,1) = 0x35 )
+		                {
+		                	DELAY(150); // Waiting for ready
+		                	SETBYTE(ActionList,1,0x30);
+		                }
+		 			}
+		 			ELSE IF((BYTE(ActionList,4) <> 0x30))
+		 			{	 	
+		 			 	SWITCH(BYTE(ActionList,4))
+		 			 	{
+		 			 		CASE(0x31): SendCmd(RC5,2,16,118); // CD
+		 			 		CASE(0x32): SendCmd(RC5,2,16,98); // BD
+		 			 		CASE(0x33): SendCmd(RC5,2,16,94); // AV
+		 			 		CASE(0x34): SendCmd(RC5,2,16,27); // SAT
+		 			 		CASE(0x35): SendCmd(RC5,2,16,96); // PVR
+		 			 		CASE(0x36): SendCmd(RC5,2,16,119); // VCR
+		 			 		CASE(0x37): SendCmd(RC5,2,16,100); // STB
+		 			 		CASE(0x38): SendCmd(RC5,2,16,99); // AUX
+		 			 		CASE(0x39): SendCmd(RC5,2,16,58); // DISPLAY
+		 			 	}
+		 			 	SETBYTE(ActionList,4,0x30);
+		 			}
+		 			ELSE IF((BYTE(ActionList,5) <> 0x30))
+		 			{	 	
+		 			 	SWITCH(BYTE(ActionList,5))
+		 			 	{
+		 			 		CASE(0x31): SendCmd(RC5,2,16,28); // FM
+		 			 		CASE(0x32): SendCmd(RC5,2,17,53); // AM
+		 			 		CASE(0x33): SendCmd(RC5,2,16,72); // DAB
+		 			 		CASE(0x34): SendCmd(RC5,2,16,93); // USB
+		 			 		CASE(0x35): SendCmd(RC5,2,16,92); // NET
+		 			 		CASE(0x36): SendCmd(RC5,2,16,97); // GAME
+		 			 		CASE(0x37): SendCmd(0x15,1,RecallPreset,0); // Tuner Preset Recall
+		 			 		CASE(0x38): SendCmd(RC5,2,16,28); // Tuner Preset Store
+		 			 	}
+		 			 	SETBYTE(ActionList,5,0x30);
+		 			}
+		 			IF(PowerOnFb)
+		 			{
+		 				DELAY(50); // Waiting for source to change
+		            	IF(BYTE(ActionList,1) = 0x30 ) SETBYTE(ActionList,1,0x36); //Check Source State
+		            }		
+		 		}
+		 		ELSE IF( BYTE(ActionList,6) <> 0x30) //Navigation
+		 		{
+		 			SWITCH(BYTE(ActionList,6))
+	 			 	{
+	 			 		CASE(0x31): SendCmd(RC5,2,16,86); // UP
+	 			 		CASE(0x32): SendCmd(RC5,2,16,85); // DOWN
+	 			 		CASE(0x33): SendCmd(RC5,2,16,81); // LEFT
+	 			 		CASE(0x34): SendCmd(RC5,2,16,80); // RIGHT
+	 			 		CASE(0x35): SendCmd(RC5,2,16,87); // OK
+	 			 		CASE(0x36): SendCmd(0x23,1,01,0); // ScanUp
+	 			 		CASE(0x37): SendCmd(0x23,1,02,0); // ScanDown
+	 			 		CASE(0x38): SendCmd(RC5,2,16,47); // Change Resolution
+	 			 		//CASE(0x39): SendCmd(RC5,2,16,01); //
+	 			 	}
+	 			 	SETBYTE(ActionList,6,0x30);
+	 			}
+				ELSE IF( BYTE(ActionList,7) <> 0x30) //Navigation
+		 		{
+		 			SWITCH(BYTE(ActionList,7))
+	 			 	{
+	 			 		CASE(0x31): SendCmd(RC5,2,16,41); // RED
+	 			 		CASE(0x32): SendCmd(RC5,2,16,42); // GREEN
+	 			 		CASE(0x33): SendCmd(RC5,2,16,43); // YELLOW
+	 			 		CASE(0x34): SendCmd(RC5,2,16,55); // BLUE
+	 			 		CASE(0x35): SendCmd(RC5,2,16,82); // Menu
+	 			 		CASE(0x36): SendCmd(RC5,2,16,70); // PopUp
+	 			 		//CASE(0x37): SendCmd(RC5,2,16,11); // Rtn
+	 			 		//CASE(0x38): SendCmd(RC5,2,16,47); // Audio
+	 			 	}
+	 			 	SETBYTE(ActionList,7,0x30);
+	 			}
+
+		 		// ***** Polling Sequence, lowest priority *****
+		 		ELSE IF( BYTE(ActionList,8) = 0x31 ) //Decode Mode text 2CH
+		 		{
+		 			SETBYTE(ActionList,8,0x32);
+					SendCmd(0x10,1,0xF0,0);	
+		 		}
+		 		ELSE IF( BYTE(ActionList,8) = 0x32 ) //Decode Mode text MCH
+		 		{
+		 			SETBYTE(ActionList,8,0x33);
+					SendCmd(0x11,1,0xF0,0);	
+		 		}
+		 		ELSE IF( BYTE(ActionList,8) = 0x33 ) //Get Output Resolution
+		 		{
+		 			IF(EnableTunerUpdates)	SETBYTE(ActionList,8,0x34);
+		 			ELSE	SETBYTE(ActionList,8,0x30);        
+					SendCmd(0x13,1,0xF0,0);	
+		 		}
+		 		ELSE IF( BYTE(ActionList,8) = 0x34 ) //Get RDS Info
+		 		{
+		 			SETBYTE(ActionList,8,0x35);
+					SendCmd(0x12,1,0xF0,0);	
+		 		}
+		 		ELSE IF( BYTE(ActionList,8) = 0x35 ) //Get RDS Type
+		 		{
+		 			SETBYTE(ActionList,8,0x36);
+					SendCmd(0x19,1,0xF0,0);
+					IF(Input_FM_fb)
+					{
+						DELAY(10);
+						SendCmd(0x03,1,0xF0,0);
+					}
+		 		}
+		 		ELSE IF( BYTE(ActionList,8) = 0x36 ) //Get DAB Info
+		 		{
+		 			SETBYTE(ActionList,8,0x37);
+					SendCmd(0x18,1,0xF0,0);	
+		 		}
+		 		ELSE IF( BYTE(ActionList,8) = 0x37 ) //Get RDS/DLS Info
+		 		{
+		 			IF((Input_FM_fb)||(Input_DAB_fb)||(Input_NET_fb)||(Input_USB_fb)) SETBYTE(ActionList,8,0x38);
+		 			ELSE	SETBYTE(ActionList,8,0x30);
+					SendCmd(0x1A,1,0xF0,0);	
+		 		}
+		 		ELSE IF( BYTE(ActionList,8) = 0x38 ) //Get Current Frequency
+		 		{
+		 			SETBYTE(ActionList,8,0x39);
+					SendCmd(0x16,1,0xF0,0);	
+		 		}
+		 		ELSE IF( BYTE(ActionList,8) = 0x39 ) //Get USB Details
+		 		{
+		 			SETBYTE(ActionList,8,0x30);
+					SendCmd(0x1C,1,0xF0,0);
+					PollWait = Off;	
+		 		}	 	     	 	      	
+			}
+			DELAY(ActionDelay + (Idle*20) - (10*(VolumeDnHeld || VolumeUpHeld)));
+			IF(RxFail) DELAY(500);
+			ELSE IF(!PollWait && PowerOnFb)
+			{
+				Idle = On; //set poll time offset as system is not busy
+
+				PollWait = On;
+				WAIT(PollTime,WaitForPoll)
+				{
+					PollWait = Off;
+					IF(Zone = 1) SETBYTE(ActionList,8,0x31);  //Check Status
+					ELSE SETBYTE(ActionList,8,0x34);  //Check Status
+				}
+			}
+			ELSE IF(!PowerOnFb) POWERWAIT(6);		
+		}
+		Busy = Off;
+	}
+}
+PUSH Input_CD,Input_BD,Input_AV,Input_SAT,Input_PVR,Input_VCR,Input_STB,Input_AUX,Input_DISPLAY,
+	 Input_FM,Input_USB,Input_DAB,Input_USB,Input_NET,Input_GAME
+{
+	CANCELWAIT(WaitForPoll);
+	IF(!PowerOnFb)
+	{
+    	SETBYTE(ActionList,1,0x31);
+	}	
+	SETBYTE(ActionList,4,0x30);
+	SETBYTE(ActionList,5,0x30);
+	IF(Input_CD)		SETBYTE(ActionList,4,0x31);
+	IF(Input_BD)	SETBYTE(ActionList,4,0x32);
+	ELSE IF(Input_AV)	SETBYTE(ActionList,4,0x33);
+	ELSE IF(Input_SAT)	SETBYTE(ActionList,4,0x34);
+	ELSE IF(Input_PVR)	SETBYTE(ActionList,4,0x35);
+	ELSE IF(Input_VCR)	SETBYTE(ActionList,4,0x36);
+	ELSE IF(Input_STB)	SETBYTE(ActionList,4,0x37);
+	ELSE IF(Input_AUX)	SETBYTE(ActionList,4,0x38);
+	ELSE IF(Input_DISPLAY)	SETBYTE(ActionList,4,0x39);
+	ELSE IF(Input_FM)	SETBYTE(ActionList,5,0x31);
+	//ELSE IF(Input_AM)	SETBYTE(ActionList,5,0x32);
+	ELSE IF(Input_DAB)	SETBYTE(ActionList,5,0x33);
+	ELSE IF(Input_USB)	SETBYTE(ActionList,5,0x34);
+	ELSE IF(Input_NET)	SETBYTE(ActionList,5,0x35);
+	ELSE IF(Input_GAME)	SETBYTE(ActionList,5,0x36);	
+}
+CHANGE SourceSelect
+{
+	CANCELWAIT(WaitForPoll);	
+	Idle = Off; //Reset poll time offset
+	IF(SourceSelect)
+	{
+		IF(!PowerOnFb)
+		{
+	    	SETBYTE(ActionList,1,0x31);
+		}
+		IF(SourceSelect < 10)  SETBYTE(ActionList,4,0x30 + SourceSelect);
+		ELSE IF (SourceSelect < 16) SETBYTE(ActionList,5,0x30 + (SourceSelect-9));
+	}
+	ELSE	SETBYTE(ActionList,1,0x32);
+}
+PUSH PowerOn, PowerOff
+{
+	CANCELWAIT(WaitForPoll);
+	Idle = Off; //Reset poll time offset
+	IF(PowerOn)
+	{
+		SETBYTE(ActionList,1,0x31);
+	}
+	IF(PowerOff)
+	{
+	    SETBYTE(ActionList,1,0x32);
+	}
+}
+
+PUSH MuteOn
+{
+	CANCELWAIT(WaitForPoll);
+	Idle = Off; //Reset poll time offset
+	IF(!MuteONfb && ! MuteOffFb) SETBYTE(ActionList,1,0x39); 
+	SETBYTE(ActionList,2,0x31);
+}
+PUSH MuteOff
+{
+    CANCELWAIT(WaitForPoll);
+	Idle = Off; //Reset poll time offset
+    IF(!MuteONfb && ! MuteOffFb) SETBYTE(ActionList,1,0x39);
+    SETBYTE(ActionList,2,0x32);
+}
+PUSH MuteOnOff
+{
+    CANCELWAIT(WaitForPoll);
+	Idle = Off; //Reset poll time offset
+    IF(!MuteONfb && ! MuteOffFb) SETBYTE(ActionList,1,0x39);
+    IF (!MuteOnFb) SETBYTE(ActionList,2,0x31);
+    IF (MuteOnFb) SETBYTE(ActionList,2,0x32);
+}
+PUSH VolumeUp
+{
+	CANCELWAIT(WaitForPoll);
+	Idle = Off; //Reset poll time offset
+    WAIT(HoldTime,VolUpWait)
+	{
+		VolumeUpHeld = ON;
+	}
+	WHILE(VolumeUp)
+	{
+		SETBYTE(ActionList,3,0x31);
+		DELAY(VolumeDelay + (!VolumeUpHeld * VolumeDelay));
+		Idle = Off; //Reset poll time offset
+	}
+}
+RELEASE VolumeUp
+{
+	
+	Idle = Off; //Reset poll time offset
+    CANCELWAIT(VolUpWait);
+	VolumeUpHeld = Off;
+}
+PUSH VolumeDown
+{
+	CANCELWAIT(WaitForPoll);
+	Idle = Off; //Reset poll time offset
+    WAIT(HoldTime,VolDnWait)
+	{
+		VolumeDnHeld = ON;
+	}
+	WHILE(VolumeDown)
+	{
+		SETBYTE(ActionList,3,0x32);
+		DELAY(VolumeDelay + (!VolumeDnHeld * VolumeDelay));
+		Idle = Off; //Reset poll time offset
+	}
+}
+RELEASE VolumeDown
+{
+	Idle = Off; //Reset poll time offset
+    CANCELWAIT(VolDNWait);
+	VolumeDnHeld = Off;
+}
+CHANGE SetVolume
+{
+	CANCELWAIT(WaitForPoll);
+	Idle = Off; //Reset poll time offset
+    IF(!VolumeDown && !VolumeUp)
+	{
+		SETBYTE(ActionList,3,0x33);
+	}
+}
+PUSH DirectOnOffZ1
+{
+	Idle = Off; //Reset poll time offset
+    IF(Zone = 1) SETBYTE(ActionList,3,0x33);	
+}
+PUSH DecodeModeNext
+{
+	Idle = Off; //Reset poll time offset
+    SETBYTE(ActionList,3,0x35);	
+}
+INTEGER	NavHold;
+PUSH	NavUp_PresetUp,NavDn_PresetDn,NavLeft_TuneDn,NavRight_TuneUp,Navigate_OK,ScanUp,ScanDn
+{
+	CANCELWAIT(WaitForPoll);
+	Idle = Off; //Reset poll time offset
+    IF     (NavUp_PresetUp)	SETBYTE(ActionList,6,0x31);  
+	ELSE IF(NavDn_PresetDn)	SETBYTE(ActionList,6,0x32);
+	ELSE IF(NavLeft_TuneDn)	SETBYTE(ActionList,6,0x33);
+	ELSE IF(NavRight_TuneUp)SETBYTE(ActionList,6,0x34);
+	ELSE IF(Navigate_OK)	SETBYTE(ActionList,6,0x35);
+	ELSE IF(ScanUp)			SETBYTE(ActionList,6,0x36);
+	ELSE IF(ScanDn)			SETBYTE(ActionList,6,0x37);
+	WAIT(HoldTime,NavAutoRepeat)
+	{
+		NavHold = On;		
+	}
+	WHILE(NavLeft_TuneDn || NavRight_TuneUp)
+	{
+		IF(NavHold)
+		{
+			IF(NavLeft_TuneDn)	SETBYTE(ActionList,6,0x33);
+			ELSE IF(NavRight_TuneUp)SETBYTE(ActionList,6,0x34);
+		}
+		DELAY(NavRepeat);		
+	}
+}
+
+PUSH	Red,Green,Yellow,Blue,Menu,Popup
+{
+	CANCELWAIT(WaitForPoll);
+	Idle = Off; //Reset poll time offset
+    IF     (Red)	SETBYTE(ActionList,7,0x31);
+	ELSE IF(Green)	SETBYTE(ActionList,7,0x32);
+	ELSE IF(Yellow)	SETBYTE(ActionList,7,0x33);
+	ELSE IF(Blue)	SETBYTE(ActionList,7,0x34);
+	ELSE IF(Menu)	SETBYTE(ActionList,7,0x35);
+	ELSE IF(PopUp)	SETBYTE(ActionList,7,0x36);
+}
+PUSH ResolutionNextZ1
+{
+    Idle = Off; //Reset poll time offset
+    IF(Zone = 1) SETBYTE(ActionList,6,0x38);
+}
+CHANGE RecallPreset
+{
+	Idle = Off; //Reset poll time offset
+    SETBYTE(ActionList,4,0x30); //Clear other source selects
+	SETBYTE(ActionList,5,0x37);	//Set Recall command
+}
+CHANGE StorePreset
+{
+	Idle = Off; //Reset poll time offset
+    SETBYTE(ActionList,4,0x30); //Clear other source selects
+	SETBYTE(ActionList,5,0x38);	//Set Store command
+}
+
+FUNCTION Main()
+{
+	ACtionList = "00000000"; // Byte List: 1=Pwr, 2=Mute, 3=Volume/Direct/Mode, 4&5=Source, 6=Navigation, 7=Poll
+	WAITFORINITIALIZATIONCOMPLETE();
+	//PollWait = Off;
+}

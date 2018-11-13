@@ -1,0 +1,166 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+  (Fill in comments below)
+*******************************************************************************************/
+/*
+Dealer Name:	Crestron Electronics, Inc.
+System Name:
+System Number:
+Programmer:		PAC
+Comments:
+*/
+/*******************************************************************************************
+  Compiler Directives
+  (Uncomment and declare compiler directives as needed)
+*******************************************************************************************/
+// #ENABLE_DYNAMIC
+#SYMBOL_NAME "Sony 2014 Bravia TV Channel v1.0"
+// #HINT ""
+// #DEFINE_CONSTANT
+// #CATEGORY "" 
+// #PRINT_TO_TRACE
+// #DIGITAL_EXPAND 
+// #ANALOG_SERIAL_EXPAND 
+// #OUTPUT_SHIFT 
+// #HELP_PDF_FILE ""
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+// #ENABLE_TRACE
+// #ENCODING_ASCII
+// #ENCODING_UTF16
+// #ENCODING_INHERIT_FROM_PARENT
+// #ENCODING_INHERIT_FROM_PROGRAM
+/*
+#HELP_BEGIN
+   (add additional lines of help lines)
+#HELP_END
+*/
+/*******************************************************************************************
+  DIGITAL, ANALOG and SERIAL INPUTS and OUTPUTS
+  (Uncomment and declare inputs and outputs as needed)
+*******************************************************************************************/
+DIGITAL_INPUT	Select_TV_Input;
+BUFFER_INPUT	From_Device[250];
+
+STRING_OUTPUT	Current_Channel_Text, To_Device;
+/*******************************************************************************************
+  Global Variables
+  (Uncomment and declare global variables as needed)
+  Note:  Be sure to initialize all declared STRING variables as needed
+         For example, in Function Main: myString = "";
+*******************************************************************************************/
+INTEGER	iFlag1;
+STRING	sChannel[25];
+/*******************************************************************************************
+  Functions
+  (Add any additional functions here)
+  Note:  Functions must be physically placed before the location in
+         the code that calls them.
+*******************************************************************************************/
+Function fProcessData(STRING fsTemp)
+{
+	INTEGER fiTempChannelHigh, fiTempChannelLow, fiMarker1;
+	
+	if((fsTemp = "*SACHNNFFFFFFFFFFFFFFFF\x0A") || (fsTemp = "*SACHNNNNNNNNNNNNNNNNNN\x0A")
+	|| (fsTemp = "*SCCHNNFFFFFFFFFFFFFFFF\x0A") || (fsTemp = "*SCCHNNNNNNNNNNNNNNNNNN\x0A"))
+	{
+		fsTemp = "";
+	}
+	else if((left(fsTemp, len("*SACHNN")) = "*SACHNN") || (left(fsTemp, len("*SNCHNN")) = "*SNCHNN"))
+	{//*SCCHNN00000013.1000000\x0A
+		fiMarker1 = find(".", fsTemp);
+		if(fiMarker1 > 0)
+		{
+			fiTempChannelHigh = atoi(fsTemp);
+			makestring(sChannel, "%d.%s", fiTempChannelHigh, mid(fsTemp, fiMarker1 + 1, len(fsTemp) - (fiMarker1 + 1)));
+			while(right(sChannel, 1) = "0")
+			{
+				sChannel = left(sChannel, len(sChannel) - 1);
+			}
+			if(right(sChannel, 1) = ".")
+			{
+				sChannel = sChannel + "0";
+			}
+			Current_Channel_Text = sChannel;
+		}
+	}
+}
+
+String_Function sfSendTVInputCommand(STRING fsChannel)
+{
+	STRING fsReturn[50];
+	INTEGER fiMarker1;
+	
+	fiMarker1 = 0;
+	fiMarker1 = find(".", fsChannel);
+	if(fiMarker1 = 0)
+	{
+		makestring(fsReturn, "*SCCHNN%08d.0000000\x0A", atoi(fsChannel));
+	}
+	else if(fiMarker1 = len(fsChannel))
+	{
+		makestring(fsReturn, "*SCCHNN%08d.0000000\x0A", atoi(fsChannel));
+	}
+	else
+	{
+		makestring(fsReturn, "*SCCHNN%08d.%s", atoi(fsChannel), right(fsChannel, len(fsChannel) - fiMarker1));
+		while(len(fsReturn) < 23)
+		{
+			fsReturn = fsReturn + "0";
+		}
+		fsReturn = fsReturn + "\x0A";
+	}
+	Return (fsReturn);
+}
+/*******************************************************************************************
+  Event Handlers
+  (Uncomment and declare additional event handlers as needed)
+*******************************************************************************************/
+PUSH Select_TV_Input
+{
+	if(len(sChannel) > 0)
+	{
+		To_Device = sfSendTVInputCommand(sChannel);
+	}
+	else
+	{
+		To_Device = sfSendTVInputCommand("3");
+	}
+}
+#if_series3
+threadsafe change From_Device
+{
+	STRING esTemp[100];
+	while(1)
+	{
+		esTemp = gather("\x0A", From_Device);
+		fProcessData(esTemp);
+	}
+}
+#else
+change From_Device
+{
+	STRING esTemp[100];
+	if(iFlag1 = 0)
+	{
+		iFlag1 = 1;
+		while(1)
+		{
+			esTemp = gather("\x0A", From_Device);
+			fProcessData(esTemp);
+		}
+		iFlag1 = 0;
+	}
+}
+#endif
+/*******************************************************************************************
+  Main()
+  Uncomment and place one-time startup code here
+  (This code will get called when the system starts up)
+*******************************************************************************************/
+Function Main()
+{
+	WaitForInitializationComplete();
+	sChannel = "3";
+	iFlag1 = 0;
+}

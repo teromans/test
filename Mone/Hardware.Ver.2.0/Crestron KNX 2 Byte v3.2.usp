@@ -1,0 +1,184 @@
+/*******************************************************************************************
+  SIMPL+ Module Information
+  (Fill in comments below)
+*******************************************************************************************/
+/*
+Dealer Name:
+System Name:
+System Number:
+Programmer: CH
+Comments:
+*/
+
+/*******************************************************************************************
+  Compiler Directives
+  (Uncomment and declare compiler directives as needed)
+*******************************************************************************************/
+// #ENABLE_DYNAMIC
+// #SYMBOL_NAME ""
+// #HINT ""
+// #DEFINE_CONSTANT
+#CATEGORY "0" 
+// #DEFAULT_VOLATILE
+// #PRINT_TO_TRACE
+// #DIGITAL_EXPAND 
+// #ANALOG_SERIAL_EXPAND 
+#OUTPUT_SHIFT 1
+// #HELP_PDF_FILE ""
+#DEFAULT_VOLATILE
+#ENABLE_STACK_CHECKING
+#ENABLE_TRACE
+#USER_SIMPLSHARP_LIBRARY "CrestronKNXLibrary"
+/*
+#HELP_BEGIN
+   (add additional lines of help lines)
+#HELP_END
+*/
+
+/*******************************************************************************************
+  Include Libraries
+  (Uncomment and include additional libraries as needed)
+*******************************************************************************************/
+// #CRESTRON_LIBRARY ""
+// #USER_LIBRARY ""
+
+/*******************************************************************************************
+  DIGITAL, ANALOG and SERIAL INPUTS and OUTPUTS
+  (Uncomment and declare inputs and outputs as needed)
+*******************************************************************************************/
+DIGITAL_INPUT Initialize, Poll_Value, setEIS5Sign;
+ANALOG_INPUT SetValue, setEIS5Value;
+
+
+DIGITAL_OUTPUT InitializationIsComplete, EIS5Sign_fb;
+ANALOG_OUTPUT value_fb, EIS5Value_fb, EIS5mantissa_fb, EIS5exponent_fb;
+STRING_OUTPUT EIS5valueText, EIS5decimalValueText;
+
+/*******************************************************************************************
+  Parameters
+  (Uncomment and declare parameters as needed)
+*******************************************************************************************/
+INTEGER_PARAMETER ipGatewayID;
+// SIGNED_INTEGER_PARAMETER
+// LONG_INTEGER_PARAMETER
+// SIGNED_LONG_INTEGER_PARAMETER
+STRING_PARAMETER spAddress[20];
+
+
+/*******************************************************************************************
+  Global Variables
+  (Uncomment and declare global variables as needed)
+  Note:  Be sure to initialize all declared STRING variables as needed
+         For example, in Function Main: myString = "";
+*******************************************************************************************/
+// LONG_INTEGER
+// SIGNED_INTEGER
+// SIGNED_LONG_INTEGER
+// STRING
+
+KNXTwoByteSimplSharpComponent simplSharpComponent;
+
+/*******************************************************************************************
+  Event Handlers
+  (Uncomment and declare additional event handlers as needed)
+*******************************************************************************************/
+
+PUSH Initialize
+{
+   	simplSharpComponent.InitializeSettings(ipGatewayID, getSymbolReferenceName(), spAddress);
+}
+
+PUSH Poll_Value
+{
+	simplSharpComponent.PollValue();
+}
+
+CHANGE SetValue
+{
+    simplSharpComponent.ChangeValue(SetValue);
+}
+
+CHANGE setEIS5Value
+{
+    simplSharpComponent.ChangeEIS5Value(setEIS5Sign,setEIS5Value);
+}
+
+
+/*****************************************************
+                CALLBACK FUNCTIONS
+******************************************************/
+ 
+Callback Function UpdateTwoByteValueCallback(integer value)
+{
+	value_fb = value;
+}
+
+
+Callback Function UpdateTwoByteEIS5MantissaValueCallback(integer value)
+{
+	EIS5mantissa_fb = value;
+}
+
+Callback Function UpdateTwoByteEIS5ExponentValueCallback(integer value)
+{
+	EIS5exponent_fb = value;
+}
+
+Callback Function UpdateTwoByteEIS5SignValueCallback(integer value)
+{
+	EIS5Sign_fb = value;
+}
+
+Callback Function UpdateTwoByteEIS5AbsoluteValueCallback(signed_integer value)
+{
+	EIS5Value_fb = value;
+}
+
+Callback Function UpdateTwoByteEIS5AbsoluteValueTextCallback(string value)
+{
+	EIS5valueText = value;
+}
+
+Callback Function UpdateTwoByteEIS5DecimalValueTextCallback(string value)
+{
+	EIS5decimalValueText = value;
+}
+
+     
+
+Callback Function initializationIsCompleteCallback(integer tempState)
+{
+	InitializationIsComplete = tempState;	
+}
+
+
+
+callback function basicInitializationIsCompleteHandler()
+{
+	RegisterDelegate(simplSharpComponent, initializationIsComplete, initializationIsCompleteCallback);
+    RegisterDelegate(simplSharpComponent, UpdateTwoByteValue, UpdateTwoByteValueCallback);	
+	RegisterDelegate(simplSharpComponent, UpdateTwoByteEIS5MantissaValue, UpdateTwoByteEIS5MantissaValueCallback);	
+	RegisterDelegate(simplSharpComponent, UpdateTwoByteEIS5ExponentValue, UpdateTwoByteEIS5ExponentValueCallback);	
+	RegisterDelegate(simplSharpComponent, UpdateTwoByteEIS5SignValue, UpdateTwoByteEIS5SignValueCallback);	
+	RegisterDelegate(simplSharpComponent, UpdateTwoByteEIS5AbsoluteValue, UpdateTwoByteEIS5AbsoluteValueCallback);
+	RegisterDelegate(simplSharpComponent, UpdateTwoByteEIS5AbsoluteValueText, UpdateTwoByteEIS5AbsoluteValueTextCallback);	
+	RegisterDelegate(simplSharpComponent, UpdateTwoByteEIS5DecimalValueText, UpdateTwoByteEIS5DecimalValueTextCallback);
+
+
+    simplSharpComponent.BeginInitialization();
+}
+
+
+
+/*******************************************************************************************
+  Main()
+  Uncomment and place one-time startup code here
+  (This code will get called when the system starts up)
+*******************************************************************************************/
+
+Function Main()
+{                
+	WaitForInitializationComplete();
+    RegisterDelegate(simplSharpComponent, basicInitializationIsComplete, basicInitializationIsCompleteHandler);
+}
+
